@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Heart Disease Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+<div class="container">
+
+  <header>
+    <h1>❤️ Heart Disease Predictor</h1>
+    <p class="subtitle">Machine Learning web app</p>
+  </header>
+
+  <div class="card">
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <div class="autofill">
+        <button id="autofill-no" class="btn">No Disease</button>
+        <button id="autofill-yes" class="btn danger">Disease</button>
+        <button id="clear" class="btn muted">Clear</button>
+      </div>
+
+      <div class="threshold">
+        Threshold:
+        <span id="thresholdLabel">0.40</span>
+        <span class="tooltip-icon" title="Lower = sensitive, Higher = strict">?</span>
+        <input id="threshold" type="range" min="0.1" max="0.9" step="0.01" value="0.40">
+      </div>
+    </div>
+
+    <!-- PATIENT -->
+    <div class="inputs-grid" style="margin-top:14px">
+      <div>
+        <label>Patient Name</label>
+        <input id="patient_name" type="text" placeholder="Optional">
+      </div>
+      <div style="grid-column: span 2">
+        <label>Clinician Notes</label>
+        <textarea id="notes" placeholder="Optional notes..."></textarea>
+      </div>
+    </div>
+
+    <!-- MODEL INPUTS -->
+    <form id="predictForm">
+      <div id="inputs" class="inputs-grid"></div>
+
+      <div class="inline-actions">
+        <button id="predictBtn" class="btn primary">Predict</button>
+        <button id="showRawBtn" type="button" class="btn">JSON</button>
+        <button id="downloadPdfBtn" type="button" class="btn outline">PDF</button>
+      </div>
+    </form>
+
+    <!-- RESULT -->
+    <div class="result-panel">
+      <div class="risk-meter">
+        <div class="meter-bg">
+          <div id="meter-fill" class="meter-fill"></div>
+        </div>
+        <div id="meter-label" class="meter-label">0%</div>
+      </div>
+
+      <div class="result-text">
+        <div id="resultText">Waiting for prediction…</div>
+
+        <div class="prob-bar hidden" id="probBar">
+          <div class="bar-bg">
+            <div id="barFill" class="bar-fill"></div>
+          </div>
+          <div class="prob-values">
+            Disease: <span id="p1">0%</span> | No disease: <span id="p0">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <pre id="rawJson" class="raw-json hidden"></pre>
+  </div>
+</div>
+
+<!-- PDF MODAL -->
+<div id="pdfModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Download PDF Report</h3>
+    <p id="pdfSummary"></p>
+    <div class="modal-actions">
+      <button id="confirmPdf" class="btn primary">Download</button>
+      <button id="closePdf" class="btn muted">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+/* static/css/style.css - clean modern UI + animations */
+:root{
+  --bg:#f6f8fa;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#1967D2;
+  --danger:#e63946;
+  --success:#28a745;
+  --soft:#eef2ff;
+}
+
+*{box-sizing:border-box}
+body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);margin:0;padding:28px;color:#111}
+.container{max-width:920px;margin:0 auto}
+header h1{margin:0;font-size:28px}
+.subtitle{color:var(--muted);margin-top:6px}
+
+.card{background:var(--card);padding:18px;border-radius:12px;margin-top:18px;box-shadow:0 8px 30px rgba(20,20,40,0.04)}
+.inputs-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:10px 14px;margin-top:12px}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+input[type="text"], input[type="number"]{width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ee;outline:none;font-size:14px}
+input[type="range"]{width:220px;margin-left:10px}
+.btn{background:#fff;border:1px solid #e2e8f0;padding:8px 12px;border-radius:8px;cursor:pointer;margin-right:8px}
+.btn:hover{box-shadow:0 6px 18px rgba(25,103,210,0.06)}
+.btn.primary{background:linear-gradient(180deg,var(--accent),#1558b0);color:white;border:none}
+.btn.small{padding:6px 8px;font-size:13px}
+.btn.muted{background:#fafafa}
+.btn.danger{background:linear-gradient(180deg,var(--danger),#c92a3a);color:white;border:none}
+
+.controls{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.autofill{display:flex;align-items:center;gap:8px}
+.threshold{display:flex;align-items:center;gap:8px;color:var(--muted);}
+
+/* actions */
+.actions{display:flex;align-items:center;margin-top:12px;gap:8px}
+.result-panel{margin-top:16px;border-top:1px dashed #eef2f5;padding-top:12px;display:flex;gap:18px;align-items:center}
+.anim-area{width:140px;height:100px;display:flex;align-items:center;justify-content:center;position:relative}
+
+/* spinner */
+.spinner{width:40px;height:40px;border-radius:50%;border:4px solid #e6eefc;border-top-color:var(--accent);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* heart pulse */
+.heart{font-size:46px;color:var(--danger);display:flex;align-items:center;justify-content:center;transform-origin:center center}
+.heart-icon{display:inline-block;animation:heartbeat 1s infinite}
+@keyframes heartbeat{
+  0%{transform:scale(1)}
+  25%{transform:scale(1.18)}
+  40%{transform:scale(0.95)}
+  60%{transform:scale(1.06)}
+  100%{transform:scale(1)}
+}
+
+/* check */
+.check{font-size:40px;color:var(--success);display:flex;align-items:center;justify-content:center;transform:translateY(0);animation:pop 0.6s ease}
+@keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.05);opacity:1}100%{transform:scale(1)}}
+
+/* hidden helper */
+.hidden{display:none}
+
+/* result text */
+.result-text{flex:1;font-size:16px;line-height:1.2}
+.prob-bar{flex:1}
+.bar-bg{background:#f3f6ff;border-radius:8px;overflow:hidden;height:16px;border:1px solid #e6edff;margin-top:6px}
+.bar-fill{height:100%;background:var(--danger);width:0%;transition:width 700ms cubic-bezier(.2,.8,.2,1)}
+.prob-values{margin-top:6px;color:var(--muted);font-size:13px}
+
+/* raw JSON */
+.raw-json{background:#0f1724;color:#d1d5db;padding:12px;border-radius:8px;margin-top:12px;white-space:pre-wrap;font-size:13px}
+
+/* footer */
+.foot{text-align:center;margin-top:12px;color:var(--muted);font-size:12px}
+
+/* responsive */
+@media (max-width:720px){
+  .inputs-grid{grid-template-columns:repeat(2,1fr)}
+  .anim-area{width:90px}
+}
+@media (max-width:420px){
+  .inputs-grid{grid-template-columns:repeat(1,1fr)}
+}
+
+/* Tooltip Icon */
+.tooltip-icon {
+  display: inline-block;
+  background: #e5ecff;
+  color: #1554c8;
+  font-size: 11px;
+  border-radius: 50%;
+  padding: 2px 5px;
+  cursor: pointer;
+  margin-left: 6px;
+  border: 1px solid #cdd9ff;
+}
+.tooltip-icon:hover { background: #d9e6ff; }
+
+/* ---- RISK METER GAUGE ---- */
+.risk-meter {
+  width: 160px;
+  height: 90px;
+  position: relative;
+  margin-right: 18px;
+}
+.meter-bg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #28a745, #ffcc00, #e63946);
+  border-radius: 90px 90px 0 0;
+  overflow: hidden;
+  position: relative;
+  filter: brightness(0.95);
+}
+.meter-fill {
+  width: 100%;
+  height: 100%;
+  background: #f6f8fa;
+  transform-origin: bottom center;
+  transform: rotate(180deg);
+  transition: transform 1s ease-out;
+}
+.meter-label {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+}
+
+/* ---- INPUT COLOR CODING ---- */
+input.safe { border: 2px solid #28a745 !important; background: #e8f9ee; }
+input.warning { border: 2px solid #ffcc00 !important; background: #fff8dd; }
+input.danger { border: 2px solid #e63946 !important; background: #ffe8e8; }
+
+/* ---- PREDICTION PROGRESS BAR ---- */
+.progress-bar {
+  width: 120px;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+#progressFill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #1967D2, #4285F4);
+  transition: width 0.12s linear;
+}
+/* ============================= */
+/* EXTRA UI ENHANCEMENTS (ADDED) */
+/* ============================= */
+
+/* ---- NOTES TEXTAREA (BIGGER + AUTO-GROW FRIENDLY) ---- */
+#notes {
+  width: 100%;
+  min-height: 160px;
+  resize: none;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e6e9ee;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+#notes:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(25,103,210,0.12);
+  outline: none;
+}
+
+/* ---- INLINE ACTION BUTTONS (AFTER THAL) ---- */
+.inline-actions {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.inline-actions .btn {
+  margin-right: 0;
+}
+
+/* ---- OUTLINE BUTTON (DOWNLOAD PDF) ---- */
+.btn.outline {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+.btn.outline:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---- MODAL (DOWNLOAD PDF POPUP) ---- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 14px;
+  width: 340px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  animation: modalPop 0.35s ease;
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+/* ---- PROFESSIONAL SVG GAUGE SUPPORT ---- */
+.gauge {
+  width: 260px;
+  margin: auto;
+  text-align: center;
+}
+
+.gauge svg {
+  width: 100%;
+  height: auto;
+}
+
+#needle {
+  transition: transform 0.9s cubic-bezier(.2,.9,.3,1);
+}
+
+#riskValue {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: -6px;
+  color: #111;
+}
+
+/* ---- RESULT TEXT ENHANCEMENT ---- */
+#resultText {
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* ---- SMOOTH FIELD TRANSITIONS ---- */
+input {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* ---- MOBILE FIX FOR INLINE BUTTONS ---- */
+@media (max-width:720px){
+  .inline-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
